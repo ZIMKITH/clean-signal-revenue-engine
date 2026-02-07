@@ -9,7 +9,33 @@
 
 > **A serverless, "Glass Box" middleware designed to enforce strict data hygiene and deterministic governance between enrichment sources and Enterprise Systems of Record.**
 
-System Overview
+
+## System Overview
+
+```mermaid
+graph TD
+    %% Nodes
+    A[<b>Ingestion Layer</b><br/><i>Webhook Event Bus</i>] 
+    -->|Raw JSON Payload| B(<b>Normalization Module</b><br/><i>JavaScript Node</i>)
+    
+    B -->|Sanitized Data| C{<b>Logic Firewall</b><br/><i>Python / GCP Serverless</i>}
+    
+    C -->|Status: CLEAN| D[<b>System of Record</b><br/><i>HubSpot CRM API</i>]
+    C -->|Status: QUARANTINE| E[<b>Audit Trail</b><br/><i>Airtable Governance Log</i>]
+    
+    %% Styling
+    style A fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:5,ry:5
+    style B fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,rx:5,ry:5
+    style C fill:#ffebee,stroke:#c62828,stroke-width:4px,rx:5,ry:5
+    style D fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,rx:5,ry:5
+    style E fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,stroke-dasharray: 5 5,rx:5,ry:5
+    
+    %% Link Styling
+    linkStyle 0 stroke:#607d8b,stroke-width:2px;
+    linkStyle 1 stroke:#607d8b,stroke-width:2px;
+    linkStyle 2 stroke:#2e7d32,stroke-width:2px,stroke-dasharray: 0;
+    linkStyle 3 stroke:#c62828,stroke-width:2px,stroke-dasharray: 5 5;
+
 The Clean-Signal Revenue Engine is a "Glass Box" architectural pattern designed to solve the Data Integrity & Poisoning problem in modern AI-driven GTM stacks.
 
 Unlike standard automation wrappers that blindly inject data, this system acts as a Logic Firewall. It intercepts high-velocity payloads from enrichment sources (Clay, Clearbit), performs deterministic sanitization and risk analysis, and only commits validated data to the CRM (HubSpot).
@@ -61,27 +87,3 @@ About the Architect
 Zimkitha Ntshikaniso is an AI Solutions Architect specializing in GTM Systems Architecture and Glass Box Middleware.
 
 I build systems that make AI safe for the Enterprise. My focus is on Operational Reliability, Data Governance, and Deterministic Workflows.
-
-
-   graph TD
-    %% Nodes
-    A[<b>Ingestion Layer</b><br/><i>Webhook Event Bus</i>] 
-    -->|Raw JSON Payload| B(<b>Normalization Module</b><br/><i>JavaScript Node</i>)
-    
-    B -->|Sanitized Data| C{<b>Logic Firewall</b><br/><i>Python / GCP Serverless</i>}
-    
-    C -->|Status: CLEAN| D[<b>System of Record</b><br/><i>HubSpot CRM API</i>]
-    C -->|Status: QUARANTINE| E[<b>Audit Trail</b><br/><i>Airtable Governance Log</i>]
-    
-    %% Styling
-    style A fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:5,ry:5
-    style B fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,rx:5,ry:5
-    style C fill:#ffebee,stroke:#c62828,stroke-width:4px,rx:5,ry:5
-    style D fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,rx:5,ry:5
-    style E fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,stroke-dasharray: 5 5,rx:5,ry:5
-    
-    %% Link Styling
-    linkStyle 0 stroke:#607d8b,stroke-width:2px;
-    linkStyle 1 stroke:#607d8b,stroke-width:2px;
-    linkStyle 2 stroke:#2e7d32,stroke-width:2px,stroke-dasharray: 0;
-    linkStyle 3 stroke:#c62828,stroke-width:2px,stroke-dasharray: 5 5;
