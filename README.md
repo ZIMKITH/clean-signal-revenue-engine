@@ -9,8 +9,15 @@
 
 > **A serverless, "Glass Box" middleware designed to enforce strict data hygiene and deterministic governance between enrichment sources and Enterprise Systems of Record.**
 
+---
 
 ## System Overview
+
+**The Clean-Signal Revenue Engine** is a "Glass Box" architectural pattern designed to solve the **Data Integrity & Poisoning** problem in modern AI-driven GTM stacks.
+
+Unlike standard automation wrappers that blindly inject data, this system acts as a **Logic Firewall**. It intercepts high-velocity payloads from enrichment sources (Clay, Clearbit), performs deterministic sanitization and risk analysis, and only commits validated data to the CRM (HubSpot).
+
+**Key Architectural Principle:** *Trust but Verify.* We decouple data ingestion from data commitment using a strict governance layer.
 
 ```mermaid
 graph TD
